@@ -56,10 +56,12 @@ gameScene.update = function() {
 		this.player.y += this.playerSpeed;
 	}
 
+	// collision with the middle divider line
 	if (Phaser.Geom.Intersects.RectangleToRectangle(this.player.getBounds(), this.divider.getBounds())) {
 		this.gameOver();
 	}
 
+	// collision with any of the walls
 	if(this.player.y + this.player.height / 2 >= this.sys.game.config.height || this.player.y <= 0 || this.player.x + this.player.width / 2 >= this.sys.game.config.width || this.player.x <= 0) {
 		this.gameOver();
 	}
