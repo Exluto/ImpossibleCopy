@@ -14,6 +14,7 @@ class level1 extends Phaser.Scene {
 		this.load.image('divider', 'assets/divider.png');
 		this.load.image('endzone', 'assets/endzone.png');
 		this.load.image('player', 'assets/player.png');
+		this.load.image('obstacle', 'assets/obstacle.png');
 	};
  
 	create() {
@@ -41,6 +42,17 @@ class level1 extends Phaser.Scene {
 		this.key_S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 
 		this.playerIsAlive = true;
+
+		this.enemies = this.add.group ({
+			key: 'obstacle',
+			repeat: 1,
+			setXY: {
+				x: 110,
+				y: 100,
+				stepX: 80,
+				stepY: 20,
+			}
+		})
 	};
 
 	update() {
