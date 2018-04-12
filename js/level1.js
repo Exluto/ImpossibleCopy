@@ -18,12 +18,12 @@ class level1 extends Phaser.Scene {
 	}
 
 	preload() {
-		this.load.image('background', 'assets/background.png');
-		this.load.image('divider', 'assets/divider.png');
-		this.load.image('endzone', 'assets/endzone.png');
-		this.load.image('enemy', 'assets/enemy.png');
-		this.load.image('coin', 'assets/coin.png');
-		this.load.image('player', 'assets/player.png');
+		this.load.image('background', 'assets/josheslevel/background.png');
+		this.load.image('divider', 'assets/josheslevel/divider.png');
+		this.load.image('endzone', 'assets/josheslevel/endzone.png');
+		this.load.image('enemy', 'assets/josheslevel/enemy.png');
+		this.load.image('coin', 'assets/josheslevel/coin.png');
+		this.load.image('player', 'assets/josheslevel/player.png');
 	};
  
 	create() {
