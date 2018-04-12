@@ -1,7 +1,11 @@
 class level2 extends Phaser.Scene {
-	constructor(numDeaths = 0) {
+	constructor(numDeaths) {
 		super({ key: "level2"});
-		this.numDeaths = numDeaths;
+		if(numDeaths == null) {
+			this.numDeaths = 0;
+		} else {
+			this.numDeaths = numDeaths;
+		}
 	}
 
 	init() {
