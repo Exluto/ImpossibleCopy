@@ -13,9 +13,6 @@ class level1 extends Phaser.Scene {
 		this.topEnemyMaxY = this.sys.game.config.height / 2 - 7;
 		this.topEnemyMinY = 15;
 
-		this.botEnemyMaxY = this.sys.game.config.height - 7;
-		this.botEnemyMinY = this.sys.game.config.height / 2 + 10;
-
 		// change this to true so you cant die
 		this.inDebugMode = false;
 	}
@@ -248,13 +245,6 @@ class level1 extends Phaser.Scene {
 		let botEnemies = this.botEnemies.getChildren();
 		let botNumEnemies = botEnemies.length;
 
-		//enemies change direction when they hit a wall
-		if (botEnemies[1].y >= this.botEnemyMaxY && this.botEnemySpeed > 0) {
-			this.botEnemySpeed *= -1;
-		} else if (botEnemies[1].y <= this.botEnemyMinY && this.botEnemySpeed < 0) {
-			this.botEnemySpeed *= -1;
-		}
-
 		for (let i = 0; i < botNumEnemies; i++) {
 			botEnemies[i].y += this.topEnemySpeed;
 
@@ -268,13 +258,6 @@ class level1 extends Phaser.Scene {
 		// bottom row bottom enemies
 		let botBotEnemies = this.botBotEnemies.getChildren();
 		let botBotNumEnemies = botBotEnemies.length;
-
-		//enemies change direction when they hit a wall
-		if (botBotEnemies[1].y >= this.botEnemyMaxY && this.botEnemySpeed > 0) {
-			this.botEnemySpeed *= -1;
-		} else if (botBotEnemies[1].y <= this.botEnemyMinY && this.botEnemySpeed < 0) {
-			this.botEnemySpeed *= -1;
-		}
 
 		for (let i = 0; i < botBotNumEnemies; i++) {
 			botBotEnemies[i].y += this.botEnemySpeed;
