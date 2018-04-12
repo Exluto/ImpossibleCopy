@@ -8,6 +8,7 @@ class level1 extends Phaser.Scene {
 		this.playerSpeed = 3;
 		this.topEnemySpeed = 3;
 		this.botEnemySpeed = -3;
+		this.numCoins = 0;
 
 		this.topEnemyMaxY = this.sys.game.config.height / 2 - 7;
 		this.topEnemyMinY = 10;
@@ -21,6 +22,7 @@ class level1 extends Phaser.Scene {
 		this.load.image('divider', 'assets/divider.png');
 		this.load.image('endzone', 'assets/endzone.png');
 		this.load.image('enemy', 'assets/enemy.png');
+		this.load.image('coin', 'assets/coin.png');
 		this.load.image('player', 'assets/player.png');
 	};
  
@@ -28,6 +30,30 @@ class level1 extends Phaser.Scene {
 		let bg = this.add.sprite(0, 0, 'background');
 		bg.setOrigin(0, 0);
 		bg.setScale(.75);
+
+		//coins top row coins
+		this.topCoins = this.add.group({
+			key: 'coin',
+			repeat: 1,
+			setXY: {
+				x: 263,
+				y: 15,
+				stepX: 200
+			}
+		});
+		Phaser.Actions.ScaleXY(this.topCoins.getChildren(), -.5, -.5);
+
+		//coins bottom row coins
+		this.bottomCoins = this.add.group({
+			key: 'coin',
+			repeat: 1,
+			setXY: {
+				x: 143,
+				y: this.sys.game.config.height / 2 - 15,
+				stepX: 200
+			}
+		});
+		Phaser.Actions.ScaleXY(this.bottomCoins.getChildren(), -.5, -.5);
 
 		this.endzone = this.add.sprite(5, (this.sys.game.config.height / 2) + 7, 'endzone');
 		this.endzone.setOrigin(0, 0);
@@ -97,6 +123,14 @@ class level1 extends Phaser.Scene {
 		this.key_S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 
 		this.playerIsAlive = true;
+
+		Phaser.Actions.Call(this.topCoins.getChildren(), function(coin) {
+			coin.canCollect = true;
+		}, this);
+
+		Phaser.Actions.Call(this.bottomCoins.getChildren(), function(coin) {
+			coin.canCollect = true;
+		}, this);
 	};
 
 	update() {
@@ -216,6 +250,36 @@ class level1 extends Phaser.Scene {
 				break;
 			}
 		}
+
+		let topCoins = this.topCoins.getChildren();
+		let topCoinsNum = topCoins.length;
+
+		for(let i = 0; i < topCoinsNum; i++) {
+			if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.getBounds(), topCoins[i].getBounds())) {
+				if(topCoins[i].canCollect) {
+					this.numCoins++;
+					topCoins[i].canCollect = false;
+					topCoins[i].destroy();
+					console.log(this.numCoins);
+				}
+				break;
+			}
+		}
+
+		let bottomCoins = this.bottomCoins.getChildren();
+		let botCoinsNum = bottomCoins.length;
+
+		for(let i = 0; i < botCoinsNum; i++) {
+			if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.getBounds(), bottomCoins[i].getBounds())) {
+				if(bottomCoins[i].canCollect) {
+					this.numCoins++;
+					bottomCoins[i].canCollect = false;
+					bottomCoins[i].destroy();
+					console.log(this.numCoins);
+				}
+				break;
+			}
+		}
 	};
 
 	gameOver() {
@@ -225,8 +289,8 @@ class level1 extends Phaser.Scene {
 	}
 
 	gameWon() {
-		console.log("GameWon");
-		// next level goes here
-		// this.scene.manager.bootScene(NextLevelHere);
+		if(this.numCoins == 4) {
+			console.log("GameWon");
+		}
 	}
 }
