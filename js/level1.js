@@ -15,6 +15,9 @@ class level1 extends Phaser.Scene {
 
 		this.botEnemyMaxY = this.sys.game.config.height - 7;
 		this.botEnemyMinY = this.sys.game.config.height / 2 + 10;
+
+		// change this to true so you cant die
+		this.inDebugMode = false;
 	}
 
 	preload() {
@@ -214,7 +217,7 @@ class level1 extends Phaser.Scene {
 			topEnemies[i].y += this.topEnemySpeed;
 
 			// collision with enemies
-			if (Phaser.Geom.Intersects.RectangleToRectangle(this.player.getBounds(), topEnemies[i].getBounds())) {
+			if (Phaser.Geom.Intersects.RectangleToRectangle(this.player.getBounds(), topEnemies[i].getBounds()) && !this.inDebugMode) {
 				this.gameOver();
 				break;
 			}
@@ -235,7 +238,7 @@ class level1 extends Phaser.Scene {
 			topBotEnemies[i].y += this.botEnemySpeed;
 
 			// collision with enemies
-			if (Phaser.Geom.Intersects.RectangleToRectangle(this.player.getBounds(), topBotEnemies[i].getBounds())) {
+			if (Phaser.Geom.Intersects.RectangleToRectangle(this.player.getBounds(), topBotEnemies[i].getBounds()) && !this.inDebugMode) {
 				this.gameOver();
 				break;
 			}
@@ -256,7 +259,7 @@ class level1 extends Phaser.Scene {
 			botEnemies[i].y += this.topEnemySpeed;
 
 			// collision with enemies
-			if (Phaser.Geom.Intersects.RectangleToRectangle(this.player.getBounds(), botEnemies[i].getBounds())) {
+			if (Phaser.Geom.Intersects.RectangleToRectangle(this.player.getBounds(), botEnemies[i].getBounds()) && !this.inDebugMode) {
 				this.gameOver();
 				break;
 			}
@@ -277,7 +280,7 @@ class level1 extends Phaser.Scene {
 			botBotEnemies[i].y += this.botEnemySpeed;
 
 			// collision with enemies
-			if (Phaser.Geom.Intersects.RectangleToRectangle(this.player.getBounds(), botBotEnemies[i].getBounds())) {
+			if (Phaser.Geom.Intersects.RectangleToRectangle(this.player.getBounds(), botBotEnemies[i].getBounds()) && !this.inDebugMode) {
 				this.gameOver();
 				break;
 			}
