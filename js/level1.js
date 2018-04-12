@@ -11,10 +11,10 @@ class level1 extends Phaser.Scene {
 		this.numCoins = 0;
 
 		this.topEnemyMaxY = this.sys.game.config.height / 2 - 7;
-		this.topEnemyMinY = 10;
+		this.topEnemyMinY = 15;
 
-		this.botEnemyMaxY = this.sys.game.config.height / 2 + 7;
-		this.botEnemyMinY = this.sys.game.config.height - 7;
+		this.botEnemyMaxY = this.sys.game.config.height - 7;
+		this.botEnemyMinY = this.sys.game.config.height / 2 + 10;
 	}
 
 	preload() {
