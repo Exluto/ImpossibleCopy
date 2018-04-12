@@ -55,6 +55,30 @@ class level1 extends Phaser.Scene {
 		});
 		Phaser.Actions.ScaleXY(this.bottomCoins.getChildren(), -.5, -.5);
 
+		//coins bottom row coins
+		this.botBottomCoins = this.add.group({
+			key: 'coin',
+			repeat: 1,
+			setXY: {
+				x: 263,
+				y: this.sys.game.config.height / 2 + 15,
+				stepX: 200
+			}
+		});
+		Phaser.Actions.ScaleXY(this.botBottomCoins.getChildren(), -.5, -.5);
+
+		//coins bottom row coins
+		this.topBottomCoins = this.add.group({
+			key: 'coin',
+			repeat: 1,
+			setXY: {
+				x: 143,
+				y: this.sys.game.config.height - 15,
+				stepX: 200
+			}
+		});
+		Phaser.Actions.ScaleXY(this.topBottomCoins.getChildren(), -.5, -.5);
+
 		this.endzone = this.add.sprite(5, (this.sys.game.config.height / 2) + 7, 'endzone');
 		this.endzone.setOrigin(0, 0);
 		this.endzone.setScale(.75);
@@ -129,6 +153,14 @@ class level1 extends Phaser.Scene {
 		}, this);
 
 		Phaser.Actions.Call(this.bottomCoins.getChildren(), function(coin) {
+			coin.canCollect = true;
+		}, this);
+
+		Phaser.Actions.Call(this.botBottomCoins.getChildren(), function(coin) {
+			coin.canCollect = true;
+		}, this);
+
+		Phaser.Actions.Call(this.topBottomCoins.getChildren(), function(coin) {
 			coin.canCollect = true;
 		}, this);
 	};
@@ -251,6 +283,7 @@ class level1 extends Phaser.Scene {
 			}
 		}
 
+		// top row top coins
 		let topCoins = this.topCoins.getChildren();
 		let topCoinsNum = topCoins.length;
 
@@ -266,6 +299,7 @@ class level1 extends Phaser.Scene {
 			}
 		}
 
+		// top row bottom coins
 		let bottomCoins = this.bottomCoins.getChildren();
 		let botCoinsNum = bottomCoins.length;
 
@@ -280,6 +314,38 @@ class level1 extends Phaser.Scene {
 				break;
 			}
 		}
+
+		// bottom row top coins
+		let topBottomCoins = this.topBottomCoins.getChildren();
+		let topBotCoinsNum = topBottomCoins.length;
+
+		for(let i = 0; i < topBotCoinsNum; i++) {
+			if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.getBounds(), topBottomCoins[i].getBounds())) {
+				if(topBottomCoins[i].canCollect) {
+					this.numCoins++;
+					topBottomCoins[i].canCollect = false;
+					topBottomCoins[i].destroy();
+					console.log(this.numCoins);
+				}
+				break;
+			}
+		}
+
+		// bottom row bottom coins
+		let botBottomCoins = this.botBottomCoins.getChildren();
+		let botBotCoinsNum = botBottomCoins.length;
+
+		for(let i = 0; i < botBotCoinsNum; i++) {
+			if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.getBounds(), botBottomCoins[i].getBounds())) {
+				if(botBottomCoins[i].canCollect) {
+					this.numCoins++;
+					botBottomCoins[i].canCollect = false;
+					botBottomCoins[i].destroy();
+					console.log(this.numCoins);
+				}
+				break;
+			}
+		}
 	};
 
 	gameOver() {
@@ -289,8 +355,9 @@ class level1 extends Phaser.Scene {
 	}
 
 	gameWon() {
-		if(this.numCoins == 4) {
+		if(this.numCoins >= 1) {
 			console.log("GameWon");
+			this.scene.start("level2");
 		}
 	}
 }
