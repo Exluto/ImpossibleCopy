@@ -16,7 +16,7 @@ class level2 extends Phaser.Scene {
 		this.load.image('enemy2', 'assets/deansLevel/enemy2.png');
 		this.load.image('background2', 'assets/deansLevel/background2 .png');
 		this.load.image('divider', 'assets/deansLevel/divider.png');
-		this.load.image('finish', 'assets/deansLevel/finish.png');
+		this.load.image('endzone', 'assets/endzone.png');
 		this.load.image('player', 'assets/player.png');
 	};
  
@@ -29,9 +29,9 @@ class level2 extends Phaser.Scene {
 		this.divider.setOrigin(0, 0);
 		this.divider.setScale(1);
 
-		this.finish = this.add.sprite(300,100, this.sys.game.config.height  , 'finish');
-		this.finish.setOrigin(0, 0);
-		this.finish.setScale(10);
+		this.endzone = this.add.sprite(500,100, (this.sys.game.config.height / 2) + 7, 'endzone');
+		this.endzone.setOrigin(0, 0);
+		this.endzone.setScale(.75);
 
 		// make sure this is the last sprite added so it shows up on top of the other sprites (anything under this will be above the player)
 		this.player = this.add.sprite(30, 80, 'player');
@@ -107,7 +107,7 @@ class level2 extends Phaser.Scene {
 		}
 
 		//collision with the endzone
-		if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.getBounds(), this.finish.getBounds())) {
+		if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.getBounds(), this.endzone.getBounds())) {
 			this.gameWon();
 		}
 	};
