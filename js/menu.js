@@ -7,7 +7,7 @@ class menu extends Phaser.Scene {
 		var styleGame = { font: "40px Impact", boundsAlignH: "center", boundsAlignV: "middle" };
 		var styleStart = { font: "20px Impact", boundsAlignH: "center", boundsAlignV: "middle" };
 
-		this.gameName = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height / 2 - 25, "Game Title Here", styleGame);
+		this.gameName = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height / 2 - 25, "The Hard Game", styleGame);
 		this.clickToStart = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height / 2 + 20, "Click To Start", styleStart);
 
 		this.gameName.x -= (this.gameName.width * 0.5);
