@@ -43,11 +43,11 @@ class level2 extends Phaser.Scene {
 		this.player.setOrigin(0, 0);
 
 		// movement
-		this.key_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+		/*this.key_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
 		this.key_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 		this.key_W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
 		this.key_S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-
+		*/
 		this.playerIsAlive = true;
 		this.enemy2 = this.add.sprite(200,80, 'enenmy2');
 	
