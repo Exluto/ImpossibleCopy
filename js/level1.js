@@ -1,3 +1,8 @@
+//global variables
+var left=false
+var right=false
+var player;
+
 class level1 extends Phaser.Scene {
 	constructor(numDeaths = 0) {
 		super({ key: "level1"});
@@ -140,12 +145,25 @@ class level1 extends Phaser.Scene {
 		this.player.setScale(.5);
 		this.player.setOrigin(0, 0);
 
+		//movement game controller
+		buttonleft = game.add.button(0, 472, 'leftbutton', null, this, 0, 1, 0, 1);
+		buttonleft.events.onInputOver.add(function(){left=true;});
+		buttonleft.events.onInputOut.add(function(){left=false;});
+		buttonleft.events.onInputDown.add(function(){left=true;});
+		buttonleft.events.onInputUp.add(function(){left=false;});
+
+		buttonright = game.add.button(160, 472, 'rightbutton', null, this, 0, 1, 0, 1);
+		buttonright.events.onInputOver.add(function(){right=true;});
+		buttonright.events.onInputOut.add(function(){right=false;});
+		buttonright.events.onInputDown.add(function(){right=true;});
+		buttonright.events.onInputUp.add(function(){right=false;});
+
 		// movement
-		this.key_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+		/*this.key_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
 		this.key_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 		this.key_W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
 		this.key_S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-
+	*/
 		this.playerIsAlive = true;
 
 		Phaser.Actions.Call(this.topCoins.getChildren(), function(coin) {
@@ -168,7 +186,16 @@ class level1 extends Phaser.Scene {
 	update() {
 		this.text = this.add.text(5, 0, "Death Count: " + this.numDeaths, { font: "20px Imapct", color: "black"});
 
-		if(this.key_A.isDown) {
+		if (buttonleft) {
+			this.player.x -= this.playerSpeed;
+			player.body.moveLeft(500);
+		}
+
+		if(buttonright) {
+			this.player.x += this.playerSpeed;
+			player.body.moveRight(500);
+		}
+		/*if(this.key_A.isDown) {
 			this.player.x -= this.playerSpeed;
 		}
 
@@ -183,7 +210,7 @@ class level1 extends Phaser.Scene {
 		if(this.key_S.isDown) {
 			this.player.y += this.playerSpeed;
 		}
-
+*/
 		// collision with the middle divider line
 		if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.getBounds(), this.divider.getBounds())) {
 			this.gameOver();
