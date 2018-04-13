@@ -1,6 +1,6 @@
 class menu extends Phaser.Scene {
 	constructor() {
-		super({ key: "example2" });
+		super({ key: "menu" });
 	}
 
 	create() {
