@@ -341,7 +341,7 @@ class level1 extends Phaser.Scene {
 	}
 
 	gameWon() {
-		if(this.numCoins >= 1) {
+		if(this.numCoins >= 8) {
 			console.log("GameWon");
 			this.scene.start("level2");
 		}
